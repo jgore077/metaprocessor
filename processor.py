@@ -1,6 +1,6 @@
 import json
 import os
-from PIL import Image
+from PIL import Image,UnidentifiedImageError
 
 class Processor():
   def __init__(self,metadata_path):
@@ -23,11 +23,12 @@ class Processor():
         image = Image.open(absolute_path)
         image.verify()
       except Exception:
-        if ignore_exception==False: 
-          print(f"Image {absolute_path} is corrupted") 
+        print(f"Image {absolute_path} is corrupted")
+        if not ignore_exception:
+          raise UnidentifiedImageError()
         return False
     else:
-      if ignore_exception==False:
+      if not ignore_exception:
         raise FileNotFoundError(f"Image path {absolute_path} does not exist")
       return False
     return True
@@ -41,11 +42,12 @@ class Processor():
     
     If ignore_exception=False upon an integrity violation an exception will be thrown. If true the function will return false if the file fails the integrity check or true if passing.
     """
+    ret=True
     for entry in self.metadata.values():
       if not self.validate_image(entry, ignore_exception):
-        return False
+        ret = False
       if not self.validate_metadata(entry, ignore_exception):
-        return False
+        ret = False
     return True
   
 
@@ -59,4 +61,4 @@ if __name__=="__main__":
       
       
   # processor.mutate(remove_descriptions,'nodescriptions.json')
-  processor.integrity()
+  processor.integrity(ignore_exception=True)
