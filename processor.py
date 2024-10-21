@@ -64,3 +64,4 @@ if __name__=="__main__":
   # processor.mutate(remove_descriptions,'nodescriptions.json')
   #processor.integrity(ignore_exception=True)
   processor.mutate(mutations.splitMetaData, 'splitDescriptions.json')
+  processor.mutate(mutations.visualContextualBins, 'bins.json')
