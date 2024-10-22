@@ -15,6 +15,9 @@ class Processor():
       raise FileExistsError("Cannot overwrite initial metadata file")
     with open(output_path,'w',encoding='utf-8') as outputfile:
       outputfile.write(json.dumps(self.metadata,indent=4))
+      
+  def iterate(self,iterate_function):
+    iterate_function(self.metadata)
 
   def validate_image(self, entry:dict, ignore_exception:bool)->bool:
     image_path = entry['file_path']

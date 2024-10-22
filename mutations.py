@@ -1,4 +1,4 @@
-# a file used for housing all the mutation functions
+# a file for housing all the mutation functions
 import spacy
 import json
 from spacy.cli import download

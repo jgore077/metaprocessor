@@ -1,2 +1,2 @@
-from processor import *
-from mutations import *
+from .processor import *
+from .mutations import *
