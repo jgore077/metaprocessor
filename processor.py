@@ -1,6 +1,6 @@
 import json
 import os
-from . import splitMetaData,visualContextualBins
+from mutations import splitMetaData,visualContextualBins
 from PIL import Image,UnidentifiedImageError
 
 class Processor():
