@@ -12,6 +12,7 @@ def download_spacy():
         print("Downloading 'en_core_web_sm' model...")
         download("en_core_web_sm")
         nlp = spacy.load("en_core_web_sm")
+    return nlp
 
 def splitMetaData(metadata):
     nlp=download_spacy()
