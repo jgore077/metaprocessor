@@ -4,7 +4,7 @@ import json
 from spacy.cli import download
 from VisualContextualClassifier import VisualContextualClassifier
 
-def splitMetaData(metadata):
+def download_spacy():
     # Downloads spacy model if not already downloaded
     try:
         nlp = spacy.load("en_core_web_sm")
@@ -13,6 +13,8 @@ def splitMetaData(metadata):
         download("en_core_web_sm")
         nlp = spacy.load("en_core_web_sm")
 
+def splitMetaData(metadata):
+    nlp=download_spacy()
     for entry in metadata.values():
         if entry['description']:
             desc = nlp(entry['description'])
@@ -24,15 +26,17 @@ def splitMetaData(metadata):
             entry['sentences'] = None
 
 def visualContextualBins(metadata):
+    nlp=download_spacy()
     prediction_file = "predictions.json"
     classifier=VisualContextualClassifier()
     for idx1, entry in metadata.items():
         prediction_data = {}
-        if entry['sentences']:
+        if entry['description']:
             temp_vdict = {} # visual sentences
             temp_cdict = {} # contextual sentences
             temp_sent_dict = {} # {sentence#: {"v/c":probability}}
-            for idx2, sentence in entry['sentences'].items():
+            for idx2, sentence in enumerate(nlp(entry["description"]).sents):
+                sentence=str(sentence)
                 temp_pred_dict = {} # {"v/c":probability}
                 vis_con = classifier.predict(sentence)
                 if vis_con['visual'] >= vis_con['contextual']:
