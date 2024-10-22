@@ -1,6 +1,5 @@
 import json
 import os
-from mutations import splitMetaData,visualContextualBins
 from PIL import Image,UnidentifiedImageError
 
 class Processor():
@@ -53,18 +52,3 @@ class Processor():
       if not self.validate_metadata(entry, ignore_exception):
         ret = False
     return True
-  
-
-if __name__=="__main__":
-  processor=Processor('../metadata.json')
-  
-  # Example of functional program dictionary manipulation
-  # def remove_descriptions(metadata:dict):
-  #   for key in metadata:
-  #     del metadata[key]["description"]
-      
-      
-  # processor.mutate(remove_descriptions,'nodescriptions.json')
-  #processor.integrity(ignore_exception=True)
-  processor.mutate(splitMetaData, 'splitDescriptions.json')
-  processor.mutate(visualContextualBins, 'bins.json')
