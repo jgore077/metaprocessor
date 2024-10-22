@@ -1,6 +1,6 @@
 import json
 import os
-import mutations
+from . import splitMetaData,visualContextualBins
 from PIL import Image,UnidentifiedImageError
 
 class Processor():
@@ -66,5 +66,5 @@ if __name__=="__main__":
       
   # processor.mutate(remove_descriptions,'nodescriptions.json')
   #processor.integrity(ignore_exception=True)
-  processor.mutate(mutations.splitMetaData, 'splitDescriptions.json')
-  processor.mutate(mutations.visualContextualBins, 'bins.json')
+  processor.mutate(splitMetaData, 'splitDescriptions.json')
+  processor.mutate(visualContextualBins, 'bins.json')
